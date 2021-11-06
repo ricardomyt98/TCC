@@ -1,5 +1,7 @@
+import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
+from matplotlib import pyplot as plt
 from networkx.algorithms import centrality
 from networkx.algorithms.shortest_paths.weighted import single_source_dijkstra
 from networkx.classes import graph
@@ -34,6 +36,15 @@ def get_shortest_paths_from_dijkstra_trees(graphDict: dict) -> dict:
     return pathDict
 
 
+def print_pair_paths(i, j) -> None:
+    msg = "i: {}".format(i)
+    spaces = 20 - len(msg)
+    for n in range(spaces):
+        msg += " "
+    msg += "j: {}".format(j)
+    print(msg)
+
+
 def all_shortest_paths_centrality(pathDict: dict) -> dict:
     # For each shortest path (i), check if it is contained in another (j). If it is, plus one
     for i in pathDict:
@@ -51,22 +62,59 @@ def all_shortest_paths_centrality(pathDict: dict) -> dict:
 
 def print_all_paths_and_centrality(pathDict: dict) -> None:
     for key, value in pathDict.items():
-        msg = "path: {}".format(key)
+        msg = "path: [{}]".format(key)
         spaces = 20 - len(msg)
         for i in range(spaces):
             msg += " "
-        msg += "centrality: {}".format(value.centrality)
+        msg += "centrality: [{}]".format(value.centrality)
         print(msg)
 
-def main() -> None:
-    G = nx.Graph()
-    G.add_edge(1, 2)
-    G.add_edge(1, 3)
-    G.add_edge(1, 5)
-    G.add_edge(2, 3)
-    G.add_edge(3, 4)
-    G.add_edge(4, 5)
 
+def plot_weights(pathDict: dict) -> None:
+
+    path = list(pathDict.keys())
+    centrality = []
+
+    for x in pathDict.values():
+        centrality.append(x.centrality)
+
+    # Figure Size
+    fig, ax = plt.subplots(figsize=(16, 9))
+
+    # Horizontal Bar Plot
+    ax.barh(path, centrality)
+
+    # Remove axes splines
+    for s in ['top', 'bottom', 'left', 'right']:
+        ax.spines[s].set_visible(False)
+
+    # Remove x, y Ticks
+    ax.xaxis.set_ticks_position('none')
+    ax.yaxis.set_ticks_position('none')
+
+    # Add padding between axes and labels
+    ax.xaxis.set_tick_params(pad=5)
+    ax.yaxis.set_tick_params(pad=10)
+
+    # Add x, y gridlines
+    ax.grid(b=True, color='grey', linestyle='-.', linewidth=0.5, alpha=0.2)
+
+    # Show top values
+    ax.invert_yaxis()
+
+    # Add annotation to bars
+    for i in ax.patches:
+        plt.text(i.get_width()+0.2, i.get_y()+0.5, str(round((i.get_width()), 2)),
+                 fontsize=10, fontweight='bold', color='grey')
+
+    # Add Plot Title
+    ax.set_title('Path Centrality Distribution', loc='left', )
+
+    # Show Plot
+    plt.show()
+
+
+def plot_graph(G) -> None:
     # Explicitly set positions
     pos = {1: (0, 0), 2: (-1, 0.3), 3: (2, 0.17), 4: (4, 0.255), 5: (5, 0.03)}
 
@@ -78,6 +126,7 @@ def main() -> None:
         "linewidths": 5,
         "width": 5,
     }
+
     nx.draw_networkx(G, pos, **options)
 
     # Set margins for the axes so that nodes aren't clipped
@@ -86,9 +135,23 @@ def main() -> None:
     plt.axis("off")
     plt.show()
 
+
+def main() -> None:
+    G = nx.Graph()
+    G.add_edge(1, 2)
+    G.add_edge(1, 3)
+    G.add_edge(1, 5)
+    G.add_edge(2, 3)
+    G.add_edge(3, 4)
+    G.add_edge(4, 5)
+
+    plot_graph(G)
+
     dijkstraTrees = get_dijkstra_trees_from_a_graph(G)
     shortestPaths = get_shortest_paths_from_dijkstra_trees(dijkstraTrees)
     all_shortest_paths_centrality(shortestPaths)
+    plot_weights(shortestPaths)
     print_all_paths_and_centrality(shortestPaths)
+
 
 main()
