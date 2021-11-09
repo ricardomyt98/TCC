@@ -50,16 +50,16 @@
 % Campos não utilizados podem ser removidos ou comentados.
 
 % título
-\title{Um modelo \LaTeX\ para dissertações e teses \\ (escrevi um título mais longo para ver como se comporta a quebra de linhas e o espaçamento entre elas)}
+\title{Explorando propriedades da centralidade de caminhos mínimos em grafos complexos.}
 
 % palavras-chave e keywords (p/ resumo, abstract e metadados do PDF)
-\pchave{Palavra-chave 1. Palavra-chave 2. Palavra-chave 3.}
-\keyword{Keyword 1. Keyword 2. Keyword 3.}
+\pchave{Teoria dos grafos. Caminhos mínimos. Grafos complexos. Algoritmo de Dijkstra.}
+% \keyword{Keyword 1. Keyword 2. Keyword 3.}
 
 % autoria
-\author{Carlos Alberto Maziero}
-\advisor{Donald Knuth}
-\coadvisor{Leslie Lamport}
+\author{Ricardo Norio Miyata}
+\advisor{Murilo V. G. da Silva}
+% \coadvisor{Leslie Lamport}
 
 % instituição
 \IfLanguageName{brazilian}
@@ -76,7 +76,7 @@
   { \field{Ciência da Computação} }
 
 % data (só o ano)
-\date{2018}
+\date{2021}
 
 % local
 \IfLanguageName{brazilian}
@@ -96,7 +96,7 @@
 % em português, mesmo em documentos em outras línguas. Vá entender...
 
 % tese de doutorado
-\descr{Tese apresentada como requisito parcial à obtenção do grau de Doutor em Ciência da Computação no Programa de Pós-Graduação em Informática, Setor de Ciências Exatas, da Universidade Federal do Paraná}
+% \descr{Tese apresentada como requisito parcial à obtenção do grau de Doutor em Ciência da Computação no Programa de Pós-Graduação em Informática, Setor de Ciências Exatas, da Universidade Federal do Paraná}
 
 % exame de qualificação de doutorado
 %\descr{Documento apresentado como requisito parcial ao exame de qualificação de Doutorado no Programa de Pós-Graduação em Informática, Setor de Ciências Exatas, da Universidade Federal do Paraná}
@@ -108,7 +108,7 @@
 %\descr{Documento apresentado como requisito parcial ao exame de qualificação de Mestrado no Programa de Pós-Graduação em Informática, Setor de Ciências Exatas, da Universidade Federal do Paraná}
 
 % trabalho de conclusão de curso
-%\descr{Trabalho apresentado como requisito parcial à conclusão do Curso de Bacharelado em XYZ, Setor de Ciências Exatas, da Universidade Federal do Paraná}
+\descr{Trabalho apresentado como requisito parcial à conclusão do Curso de Bacharelado em Ciência da Computação, Setor de Ciências Exatas, da Universidade Federal do Paraná}
 
 % trabalho de disciplina
 %\descr{Trabalho apresentado como requisito parcial à conclusão da disciplina XYZ no Curso de Bacharelado em XYZ, Setor de Ciências Exatas, da Universidade Federal do Paraná}
@@ -159,12 +159,12 @@
 \pagestyle{mainmatter}
 
 % inclusao de cada capítulo, alterar a gosto (do professor de Metodologia)
-\include{1-intro/texto}			% introdução
-\include{2-fundam/texto}		% fundamentação teórica
-%\include{3-arte/texto}			% estado da arte
-%\include{4-proposta/texto}		% proposta
-%\include{5-valida/texto}		% experimentação e validação
-%\include{6-conclusao/texto}		% conclusão
+\include{1-introducao/texto}			            % Introdução
+\include{2-conceitosIntrodutorios/texto}      % Conceitos Introdutórios
+\include{3-caminhosMinimos/texto}			        % Caminhos Mínimos
+\include{4-metodologia/texto}			            % Metodologia
+\include{5-resultados/texto}			            % Resultados
+\include{6-conclusoesTrabalhosFuturos/texto}  % Conclusões e Trabalhos Futuros
 
 %=====================================================
 
@@ -181,11 +181,11 @@
 % inclusão de apêndices
 \appendix
 
-% inclusão de apêndice
-\include{a1-exemplo/texto}
+% % inclusão de apêndice
+% \include{a1-exemplo/texto}
 
-% inclusão de apêndice
-\include{a2-exemplo/texto}
+% % inclusão de apêndice
+% \include{a2-exemplo/texto}
 
 %=====================================================
 
