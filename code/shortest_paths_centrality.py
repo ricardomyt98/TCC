@@ -1,3 +1,6 @@
+import urllib.request
+import io
+import zipfile
 import pandas as pd
 import networkx as nx
 import matplotlib.pyplot as plt
@@ -63,7 +66,7 @@ def all_shortest_paths_centrality(pathDict: dict) -> dict:
 def print_all_paths_and_centrality(pathDict: dict) -> None:
     for key, value in pathDict.items():
         msg = "path: [{}]".format(key)
-        spaces = 20 - len(msg)
+        spaces = 50 - len(msg)
         for i in range(spaces):
             msg += " "
         msg += "centrality: [{}]".format(value.centrality)
@@ -136,7 +139,7 @@ def plot_graph(G) -> None:
     plt.show()
 
 
-def main() -> None:
+def simple_graph_generator():
     G = nx.Graph()
     G.add_edge(1, 2)
     G.add_edge(1, 3)
@@ -144,14 +147,63 @@ def main() -> None:
     G.add_edge(2, 3)
     G.add_edge(3, 4)
     G.add_edge(4, 5)
+    return(G)
 
-    plot_graph(G)
+
+def karate_club_graph_generator():
+    G = nx.karate_club_graph()
+    # for v in G:
+    #     print(f"{v:4} {G.degree(v):6}")
+    return(G)
+
+
+def football_graph_generator():
+    url = "http://www-personal.umich.edu/~mejn/netdata/football.zip"
+
+    sock = urllib.request.urlopen(url)  # open URL
+    s = io.BytesIO(sock.read())  # read into BytesIO "file"
+    sock.close()
+
+    zf = zipfile.ZipFile(s)  # zipfile object
+    txt = zf.read("football.txt").decode()  # read info file
+    gml = zf.read("football.gml").decode()  # read gml data
+    # throw away bogus first line with # from mejn files
+    gml = gml.split("\n")[1:]
+    G = nx.parse_gml(gml)  # parse gml data
+    return G
+
+def plot_centrality_values(pathDict: dict) -> None:
+    l = []
+
+    for val in pathDict.values():
+        if val.centrality not in l:
+            l.append(val.centrality)
+
+    l.sort()
+
+    plt.plot(l)
+    plt.ylabel('Shortest paths centrality distribution')
+    plt.ylabel('Shortest path enumeration')
+    plt.show()
+
+
+def main() -> None:
+    # G = simple_graph_generator()
+    # G = karate_club_graph_generator()
+    G = football_graph_generator()
+
+    # print(G.number_of_nodes())
+    # print(G.number_of_edges())
+
+    # plot_graph(G)
 
     dijkstraTrees = get_dijkstra_trees_from_a_graph(G)
     shortestPaths = get_shortest_paths_from_dijkstra_trees(dijkstraTrees)
     all_shortest_paths_centrality(shortestPaths)
-    plot_weights(shortestPaths)
+    # plot_weights(shortestPaths)
     print_all_paths_and_centrality(shortestPaths)
+
+    # plot_centrality_values(shortestPaths)
 
 
 main()
