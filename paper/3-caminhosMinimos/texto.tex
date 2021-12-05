@@ -1,67 +1,104 @@
-\chapter{Caminhos Mínimos}
+\graphicspath{{\currfiledir/images/}}
+
+\chapter{Caminhos Mínimos e o Valor de centralidade}
 
 %=====================================================
 
-% A introdução geral do documento pode ser apresentada através das seguintes seções: Desafio, Motivação, Proposta, Contribuição e Organização do documento (especificando o que será tratado em cada um dos capítulos). O Capítulo 1 não contém subseções\footnote{Ver o Capítulo \ref{cap-exemplos} para comentários e exemplos de subseções.}.
+Usando-se das propriedades de grafos até agora citados, caminhos mínimos é mais uma propriedade que visa, dado dois vértices $v_1$ e $v_2$, buscar qual o caminho mais curto de $v_1$ para $v_2$. O \emph{peso} (\emph{ponderação}) de arestas é mais uma propriedade adicional para este capítulo. As arestas de um grafo, além de todas as definições previamente definidas, podem ou não possuir peso, isto é, em um exemplo da vida real, dado um mapa, os pesos das arestas para um grafo que o representasse, poderiam se referir a distância em quilômetros, com isto, o grafo seria classificado como direcionado e ponderado. Quando não se é destacado que o grafo possui pesos, consideramos que todas as suas arestas possuem o mesmo peso ou apenas que não o possuem.
 
-Este modelo foi proposto com o intuito de padronizar e simplificar as monografias, dissertações e teses produzidas no Departamento de Informática da UFPR. Ele foi vagamente inspirado nas normas da ABNT (conforme indicado em \cite{bibufpr15}), mas não as segue \emph{ipsis litteris}. Várias alterações foram feitas com o objetivo de melhorar sua estética e tornar o texto mais legível para trabalhos na área de informática. A versão atualizada deste modelo está disponível em \cite{maziero15}.
 
-Este modelo está baseado em uma classe especifica \verb#ppginf.cls#, que aceita várias opções de compilação. A versão do documento pode ser:
+\section{Algoritmo de Dijkstra}
+O algoritmo de Dijkstra resolve o problema de caminhos mínimos de fonte única em um grafo direcionado e ponderado $G = (V, E)$ para o caso em que todos os pesos das arestas não são negativos.
 
-\begin{itemize}
+O algoritmo de Dijkstra mantém um conjunto $S$ de vértices cujos pesos finais de caminhos mínimos dos $s$ de origem já foram determinados. O algoritmo seleciona repetidamente o vértice $u \in V - S$ com a estimativa do caminho mais curto mínimo, adiciona-se $u$ a $S$ e relaxa todas as arestas, deixando $u$. Na implementação a seguir, usa-se uma fila de prioridade mínima $Q$ de vértices, codificados por seus valores de $d$ \cite{cormen2009}.
 
-\item \verb#defesa#: é gerado um documento em espaço 1,5, frente simples e sem as páginas iniciais adicionais; é uma versão adequada para receber as anotações dos membros da banca de defesa.
+\begin{lstlisting}
+	DIJKSTRA(G, w, s)
+	INITIALIZE-SINGLE-SOURCE(G, s)
+	S = \emptyset
+	Q = G * V
+	while Q \neq \emptyset
+		u = EXTRACT-MIN(Q)
+		S = S \cup {u}
+		for each vertex v \in G.Adj[u]
+			RELAX(u, v, w)
+\end{lstlisting}
 
-\item \verb#final#: é gerado um documento em espaço simples, frente/verso, com páginas iniciais (capa, ficha catalográfica, folha de aprovação, agradecimentos, etc). É uma versão bem mais compacta, mais ecológica e ideal para a impressão definitiva.
+O algoritmo de Dijkstra relaxa as bordas, conforme mostrado na Figura~\ref{sec3:alg-dijkstra}. A linha 2 inicializa os valores de $d$ de maneira usual, e a linha 3 inicializa o conjunto $S$ com o conjunto vazio. O algoritmo mantém a invariante $Q = V - S$ no início de cada iteração do loop $while$ das linhas 5 – 9. A linha 4 inicializa a fila de prioridade mínima $Q$ para conter todos os vértices em $V$; desde que $S = \emptyset$, naquele momento, o invariante é verdadeiro após a linha 4. Cada vez que, através do loop $while$ das linhas 5 – 9, a linha 6 extrai um vértice $u$ de $Q = V - S$ e a linha 7 o adiciona ao conjunto $S$, mantendo assim o invariante. (A primeira vez, através deste loop, $u = s$.) O vértice $u$, portanto, tem a menor estimativa de caminho mínimo de qualquer vértice em $V - S$. Então, as linhas 8 – 9 relaxam cada aresta $(u, v)$, deixando $u$, atualizando assim a estimativa $v.d$ e o predecessor $v.\pi$ se pudermos melhorar o caminho mínimo encontrado até agora, passando por $u$. Observe que o algoritmo nunca insere vértices em $Q$ após a linha 4 e que cada vértice é extraído de $Q$ e adicionado a $S$ exatamente uma vez, de modo que o loop $while$ das linhas 5 – 9 itera exatamente $\left\lvert V\right\rvert$ vezes \cite{cormen2009}.
 
-\end{itemize}
+Como o algoritmo de Dijkstra sempre escolhe o vértice "mais leve" ou "mais próximo" em $V - S$ para adicionar ao conjunto $S$, dizemos que ele usa uma estratégia "\emph{gulosa}". Este tipo de estratégia nem sempre produzem resultados ótimos \cite{cormen2009}.
 
-Para obter os melhores resultados, compile este modelo usando a seguinte sequência de passos:
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{alg-dijkstra.png}
+    \caption{A execução do algoritmo de Dijkstra. O $s$ de origem é o vértice mais à esquerda. As estimativas de caminho mais curto aparecem dentro dos vértices e as bordas sombreadas indicam os valores predecessores. Os vértices pretos estão no conjunto $S$ e os vértices brancos estão na fila de prioridade mínima $Q = V - S$. (a) A situação imediatamente antes da primeira iteração do loop $while$ das linhas 5 – 9. O vértice sombreado tem o valor $d$ mínimo e é escolhido como vértice $u$ na linha 6. (b) - (f) A situação após cada iteração sucessiva do laço $while$. O vértice sombreado em cada parte é escolhido como vértice $u$ na linha 6 da próxima iteração. Os valores $d$ e predecessores mostrados na parte (f) são os valores finais \cite{cormen2009}.}
+    \label{sec3:alg-dijkstra}
+\end{figure}
 
-\begin{quote}
-\begin{footnotesize}
-\begin{verbatim}
-pdflatex  main          // compilação inicial
-bibtex main             // processa referências bibliográficas
-pdflatex  main          // compilação final
-\end{verbatim}
-\end{footnotesize}
-\end{quote}
+\begin{definition}
+	O algoritmo de Dijkstra, executado em um grafo direcionado ponderado $G = (V, E)$ com função de peso não negativa $w$ e fonte $s$, termina com $u.d = \delta(s, u)$ para todos os vértices $u \in V$.
+\end{definition}
 
-ou
 
-\begin{quote}
-\begin{footnotesize}
-\begin{verbatim}
-make                    // faz tudo...
-\end{verbatim}
-\end{footnotesize}
-\end{quote}
+\section{Complexidade de tempo}
+O tempo de execução no pior caso para o algoritmo de Dijkstra em um grafo com $n$ nós e $m$ arestas é $O(n^2)$ porque permite ciclos direcionados. Ele até encontra os caminhos mais curtos de um nó de origem $s$ para todos os outros nós no grafo. Isso é basicamente $O(n^2)$ para seleção de nó e $O(m)$ para atualizações de distância. Embora $O(n^2)$ seja a melhor complexidade possível para grafos densos, a complexidade pode ser melhorada significativamente para grafos esparsos. Com pequenas modificações, o algoritmo de Dijkstra pode ser usado como um algoritmo reverso que mantém árvores geradoras mínimas para o nó sorvedouro. Com outras modificações, ele pode ser estendido para se tornar bidirecional. O gargalo no algoritmo de Dijkstra é a seleção de nós. No entanto, usando a implementação de Dial, isso pode ser melhorado significativamente para grafos esparsos \cite{len2021}.
 
-Os principais itens considerados na formatação deste documento foram:
+Encontrar os caminhos mínimos de todos os pares de vértices de um grafo, é uma extensão do problema anterior. É possível resolver este problema, executando um algoritmo de caminhos mínimos de fonte única $\left\lvert V\right\rvert$ vezes, uma vez para cada vértice como fonte. Se todos os pesos das arestas forem não negativos, podemos usar o algoritmo de Dijkstra.
 
-\begin{itemize}
 
-\item Papel em formato A4, com margens de 20 mm à direita e embaixo, 30 mm nos demais lados. Não devem ser usados cabeçalhos ou rodapés além dos que estão aqui propostos.
+\section{Particionamento de grafos, uma introdução aos valores de centralidade}
+Para introduzir o conceito de particionamento de um grafo, considere dois exemplos. O primeiro, mostrado na Figura~\ref{sec3:co-authorship-network}, descreve as coautorias entre um conjunto de físicos e matemáticos aplicados trabalhando em redes. Pela imagem, percebe-se que existem grupos muito unidos dentro da comunidade, e algumas pessoas que se localizam nos limites de seus respectivos grupos \cite{easley2010}.
 
-\item O texto principal do documento escrito em 12 pontos. O fonte principal do texto pode ser selecionado no arquivo \verb#packages.tex#.
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{co-authorship-network.png}
+    \caption{Uma rede de coautoria de físicos e matemáticos aplicados.}
+    \label{sec3:co-authorship-network}
+\end{figure}
 
-\item Código-fonte, listagens e textos similares são formatados em fonte Courier 12 ou 10 pontos.
+Um segundo exemplo, na Figura~\ref{sec3:karate-club-network}, é uma imagem da rede social de um clube de karatê, uma disputa entre o presidente do clube (nó 34) e o instrutor (nó 1), direcionou o clube a se dividir em dois grupos. A Figura~\ref{sec3:karate-club-network} mostra a estrutura da rede, com os membros nos dois clubes após a divisão indicada pelos nós sombreados e não sombreados.
 
-\item O espaçamento padrão entre linhas é 1,5 linhas (1 linha na versão final). Não inserir espaços adicionais entre parágrafos normais. Figuras, tabelas, listagens e listas de itens devem ter um espaço adicional antes e após os mesmos.
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[width=\textwidth,height=\textheight,keepaspectratio]{karate-club-network.png}
+    \caption{Representação de uma rede (grafo) de um clube de karatê.}
+    \label{sec3:karate-club-network}
+\end{figure}
 
-\item As páginas iniciais não são numeradas.
+Os problemas e redes descritos, nos levam a explorar as situações em que o comportamento ou as decisões de uma pessoa dependem das escolhas feitas por outras pessoas, divisão em subgrupos na Figura~\ref{sec3:co-authorship-network} e a influência dos nós $1$ e $34$ da Figura~\ref{sec3:karate-club-network} na divisão do clube de karatê em dois subgrupos, seja porque as recompensas da pessoa dependem do que outras pessoas fazem, ou porque as escolhas de outras pessoas transmitem informações que são úteis no processo de tomada de decisão.
 
-\item O corpo do texto é numerado com algarismos arábicos (1, 2, 3, ...) a partir da introdução, ate o final do documento. Os números de página devem estar situados no alto à direita (páginas direitas) ou à esquerda (páginas esquerdas).
 
-\item Expressões em inglês, grego, latim ou outras línguas devem ser enfatizadas em itálico, como \emph{sui generis} ou \emph{scheduling} (use o comando \verb#\emph{...}#).
+\section{Centralidade de intermediação (betweenness centrality)}
+A centralidade de intermediação é uma maneira de detectar a quantidade de influência que um nó tem sobre o fluxo de informações em um grafo. Em outras palavras, usa-se para localizar os nós que servem como "ponte" de uma parte de um grafo para outra ou que inferem possuir maior "importância".
 
-\item Para reforçar algo, deve-se usar somente \textbf{negrito}. \underline{Sublinhado} ou MAIÚSCULAS não devem ser usados como forma de ênfase!
+Com o cálculo de todos os pares de caminhos mínimos não ponderados em um grafo, os nós recebem uma pontuação, esta se refere a um montante de "importância" do nó em relação ao número de caminhos mínimos que passam pelo nó. Resumindo, os nós que mais frequentemente estiverem presentes nos caminhos mínimos de um grafo terão pontuações de centralidade de intermediação mais altas.
 
-\item As notas de rodapé também têm um modelo\footnote{As notas de rodapé dever ser escritas em tamanho 10 pt, numeradas em arábico.}. Notas de rodapé servem para fazer algum comentário paralelo; não as use para colocar URLs, referências bibliográficas ou significado de siglas.
+A Figura~\ref{sec3:graph-betweenness} apresenta um grafo não direcionado colorido com base na centralidade da intermediação de cada vértice do menor (vermelho) ao maior (azul).
 
-\end{itemize}
+\begin{figure}[!htb]
+    \centering
+    \includegraphics[scale=0.4]{graph-betweenness.png}
+    \caption{Grafo não direcionado com as centralidades de intermediação dos vértices.}
+    \label{sec3:graph-betweenness}
+\end{figure}
 
-Felizmente o \LaTeX\ resolve a maior parte dessas questões!
+Nesta mesma linha, podemos avaliar a "importância" de arestas ou, de forma mais relevante, dos caminhos mínimos, atribuindo-lhes pontuações toda vez que estes estão presentes como sub caminhos mínimos em outros caminhos mínimos. Isto desperta a importância e motivação para estudo de, assim como na centralidade de intermediação de vértices, a centralidade de caminhos mínimos que será discutido na próxima seção.
+
+
+\section{Centralidade de caminhos mínimos}
+Tendo-se discutido a \emph{centralidade de intermediação (betweenness centrality)}, podemos, neste mesmo raciocínio, analisar o problema \emph{All-pairs Shortest Paths (APSP)}, em outras palavras, neste, estamos interessados em calcular os caminhos mínimos com alta centralidade em um grafo.
+
+O \emph{All-pairs Shortest Paths (APSP)} é o problema de calcular o comprimento mínimo entre cada par de vértices em um grafo ponderado. O problema APSP é muito bem estudado e tem havido resultados recentes para uma variedade de suposições para o grafo de entrada (direcionado, não direcionado, ponderado, não ponderado, etc.) \cite{alane2021}.
+
+Considere o grafo da Figura~\ref{sec3:grafo-simples-5-nos}, o percurso mais curto do vértice $v_1$ para o vértice $v_3$ é o caminho mínimo \emph{<$v_1$, $v_3$>}. Calculando-se todos os possíveis pares de caminhos mínimos deste grafo, chegaremos a conclusão de que o caminho mínimo \emph{<$v_1$, $v_3$>} terá valor de centralidade maior que o caminho mínimo \emph{<$v_1$, $v_5$, $v_4$>} (percurso mais curto do vértice $v_1$ para o $v_4$) por exemplo, isto porque as vezes em que o caminho mínimo \emph{<$v_1$, $v_3$>} está presente como subcaminho mínimo é maior que as vezes em que o caminho mínimo \emph{<$v_1$, $v_5$, $v_4$>} está presente em outros.
+
+\begin{figure}[!htb]
+    \centering
+	\includegraphics[scale=0.4]{grafo-simples-5-nos.png}
+    \caption{Grafo simples com 5 nós.}
+    \label{sec3:grafo-simples-5-nos}
+\end{figure}
+
+Adicionalmente, ainda considerando o grafo da Figura~\ref{sec3:grafo-simples-5-nos}, do vértice $v_1$ ao vértice $v_4$, um algoritmo de busca por caminhos mínimos pode retornar o percurso mais curto como sendo \emph{<$v_1$, $v_3$, $v_4$>} ou \emph{<$v_1$, $v_5$, $v_4$>}, porém nos importa apenas uma destas saídas e usaremos a que o algoritmo em questão encontrar. Para a busca de caminhos mínimos, usaremos o algoritmo de Dijkstra e assumiremos seu retorno como verdade. Esta informação é importante e curiosa, pois dependendo de como o algoritmo se comporta/ trata os dados, o resultado do conjunto de caminhos mínimos podem diferir e, consequentemente, os valores de centralidade dos caminhos mínimos nos grafos que possuam mais de uma opção de percurso mais curso de entre um par de vértices. Este aspecto de aleatorização dos rótulos de um grafo é, inclusive, uma linha de pesquisa neste mesmo escopo, mas algumas bibliografias já indicam que, em grafos muito esparsos, a aleatorização dos rótulos não resulta em diferenças significativas nos valores de centralidade dos caminhos mínimos.
 
 %=====================================================

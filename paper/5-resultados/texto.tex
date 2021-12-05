@@ -1,67 +1,72 @@
+\graphicspath{{\currfiledir/images/}}
+
 \chapter{Resultados}
 
 %=====================================================
 
-% A introdução geral do documento pode ser apresentada através das seguintes seções: Desafio, Motivação, Proposta, Contribuição e Organização do documento (especificando o que será tratado em cada um dos capítulos). O Capítulo 1 não contém subseções\footnote{Ver o Capítulo \ref{cap-exemplos} para comentários e exemplos de subseções.}.
+Para a execução dos testes, foram selecionados três grafos, dois representando modelos da vida real, clube de karatê de Zachary e a rede de jogos de futebol americano. Buscou-se selecionar redes que contivessem número de vértices e arestas distintas, para que fosse possível obter resultados não viciados em relação ao tamanho do grafo sobre os quais seriam executados os testes. Dito isso, as redes selecionadas representam diferentes tipos de redes e possuem quantidades de vértices que variam de 5 a 115. A Tabela~\ref{sec5:tab_grafos_teste} apresenta a descrição das redes nas quais foram executados os testes propostos.
 
-Este modelo foi proposto com o intuito de padronizar e simplificar as monografias, dissertações e teses produzidas no Departamento de Informática da UFPR. Ele foi vagamente inspirado nas normas da ABNT (conforme indicado em \cite{bibufpr15}), mas não as segue \emph{ipsis litteris}. Várias alterações foram feitas com o objetivo de melhorar sua estética e tornar o texto mais legível para trabalhos na área de informática. A versão atualizada deste modelo está disponível em \cite{maziero15}.
+\begin{table}[!htp]
+	\centering
+	\caption{Detalhamento das redes selecionadas.}
+	\label{sec5:tab_grafos_teste}
+	\begin{tabular}{|c|c|c|c|c|}
+		\hline
+		\textbf{Rede} & \textbf{Vértices} & \textbf{Arestas} & \textbf{Tipo}   & \textbf{Classificação} \\ \hline
+		Simple        & 5                 & 6                & Não direcionado & Teste                  \\
+		Zachary       & 34                & 78               & Não direcionado & Social                 \\
+		Football      & 115               & 613              & Não direcionado & Informação             \\ \hline
+	\end{tabular}
+\end{table}
 
-Este modelo está baseado em uma classe especifica \verb#ppginf.cls#, que aceita várias opções de compilação. A versão do documento pode ser:
+A Tabela~\ref{sec5:centralidade_grafo_teste} representa os valores de centralidade calculados para o grafo mais simples, Algoritmo~\ref{sec4:funcao_simple_graph_generator}. A ordem apresentada na tabela depende muito do contexto de análise, para este grafo, eu fiz a ordenação de tal forma a agrupar ou deixar mais próximos os vértices iguais, por exemplo, as primeiras linhas desta tabela estão ordenadas primeiro com todos os caminhos mínimos que iniciam no vértice 1 e assim por diante.
 
-\begin{itemize}
+\begin{table}[!htp]
+	\centering
+	\caption{Valores de centralidade do grafo simples, Algoritmo~\ref{sec4:funcao_simple_graph_generator}.}
+	\label{sec5:centralidade_grafo_teste}
+	\resizebox{5cm}{!}{
+		\begin{tabular}{|c|c|}
+			\hline
+			\textbf{Path} & \textbf{Centrality}        \\ \hline
+			{[}1, 2{]}    & {[}0.05{]}                 \\
+			{[}1, 3{]}    & {[}0.075{]}                \\
+			{[}1, 5{]}    & {[}0.075{]}                \\
+			{[}1, 3, 4{]} & {[}0.016666666666666666{]} \\
+			{[}2, 1{]}    & {[}0.05{]}                 \\
+			{[}2, 3{]}    & {[}0.05{]}                 \\
+			{[}2, 1, 5{]} & {[}0.016666666666666666{]} \\
+			{[}2, 3, 4{]} & {[}0.016666666666666666{]} \\
+			{[}3, 1{]}    & {[}0.075{]}                \\
+			{[}3, 2{]}    & {[}0.05{]}                 \\
+			{[}3, 4{]}    & {[}0.075{]}                \\
+			{[}3, 1, 5{]} & {[}0.016666666666666666{]} \\
+			{[}5, 1{]}    & {[}0.075{]}                \\
+			{[}5, 4{]}    & {[}0.025{]}                \\
+			{[}5, 1, 2{]} & {[}0.016666666666666666{]} \\
+			{[}5, 1, 3{]} & {[}0.016666666666666666{]} \\
+			{[}4, 3{]}    & {[}0.075{]}                \\
+			{[}4, 5{]}    & {[}0.025{]}                \\
+			{[}4, 3, 1{]} & {[}0.016666666666666666{]} \\
+			{[}4, 3, 2{]} & {[}0.016666666666666666{]} \\ \hline
+		\end{tabular}
+	}
+\end{table}
 
-\item \verb#defesa#: é gerado um documento em espaço 1,5, frente simples e sem as páginas iniciais adicionais; é uma versão adequada para receber as anotações dos membros da banca de defesa.
+Já para os grafos do clube de karatê de Zachary e da rede de jogos de futebol americano irei apresentar dois gráficos, representando a distribuição dos valores de centralidade dos caminhos mínimos, pois, a quantidade de caminhos mínimos cresce exponencialmente de acordo com o número de vértices, desta forma, a tabela para estes dois grafos são muito extensos. O Gráfico~\ref{sec5:short_path_centrality_ex2} e o Gráfico~\ref{sec5:short_path_centrality_ex3} distribuem os valores de centralidade dos caminhos mínimos no eixo $y$, de forma ordenada (crescente), enquanto o eixo $x$ representa apenas os caminhos mínimos em si, ou seja, estão rotulados sequencialmente, pois nesta visualização o percurso exato de cada um dos caminhos mínimos não nos interessa. Outra informação importante, devido aos valores de centralidade serem o ponto focal, para a representação gráfica, foram mesclados os valores de centralidade coincidentes.
 
-\item \verb#final#: é gerado um documento em espaço simples, frente/verso, com páginas iniciais (capa, ficha catalográfica, folha de aprovação, agradecimentos, etc). É uma versão bem mais compacta, mais ecológica e ideal para a impressão definitiva.
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.5]{short_path_centrality_ex2.png}
+	\caption{Gráfico com a distribuição de valores de centralidade do grafo do clube de karatê de Zachary.}
+	\label{sec5:short_path_centrality_ex2}
+\end{figure}
 
-\end{itemize}
-
-Para obter os melhores resultados, compile este modelo usando a seguinte sequência de passos:
-
-\begin{quote}
-\begin{footnotesize}
-\begin{verbatim}
-pdflatex  main          // compilação inicial
-bibtex main             // processa referências bibliográficas
-pdflatex  main          // compilação final
-\end{verbatim}
-\end{footnotesize}
-\end{quote}
-
-ou
-
-\begin{quote}
-\begin{footnotesize}
-\begin{verbatim}
-make                    // faz tudo...
-\end{verbatim}
-\end{footnotesize}
-\end{quote}
-
-Os principais itens considerados na formatação deste documento foram:
-
-\begin{itemize}
-
-\item Papel em formato A4, com margens de 20 mm à direita e embaixo, 30 mm nos demais lados. Não devem ser usados cabeçalhos ou rodapés além dos que estão aqui propostos.
-
-\item O texto principal do documento escrito em 12 pontos. O fonte principal do texto pode ser selecionado no arquivo \verb#packages.tex#.
-
-\item Código-fonte, listagens e textos similares são formatados em fonte Courier 12 ou 10 pontos.
-
-\item O espaçamento padrão entre linhas é 1,5 linhas (1 linha na versão final). Não inserir espaços adicionais entre parágrafos normais. Figuras, tabelas, listagens e listas de itens devem ter um espaço adicional antes e após os mesmos.
-
-\item As páginas iniciais não são numeradas.
-
-\item O corpo do texto é numerado com algarismos arábicos (1, 2, 3, ...) a partir da introdução, ate o final do documento. Os números de página devem estar situados no alto à direita (páginas direitas) ou à esquerda (páginas esquerdas).
-
-\item Expressões em inglês, grego, latim ou outras línguas devem ser enfatizadas em itálico, como \emph{sui generis} ou \emph{scheduling} (use o comando \verb#\emph{...}#).
-
-\item Para reforçar algo, deve-se usar somente \textbf{negrito}. \underline{Sublinhado} ou MAIÚSCULAS não devem ser usados como forma de ênfase!
-
-\item As notas de rodapé também têm um modelo\footnote{As notas de rodapé dever ser escritas em tamanho 10 pt, numeradas em arábico.}. Notas de rodapé servem para fazer algum comentário paralelo; não as use para colocar URLs, referências bibliográficas ou significado de siglas.
-
-\end{itemize}
-
-Felizmente o \LaTeX\ resolve a maior parte dessas questões!
+\begin{figure}[!htb]
+	\centering
+	\includegraphics[scale=0.5]{short_path_centrality_ex3.png}
+	\caption{Gráfico com a distribuição de valores de centralidade do grafo da rede de jogos de futebol americano.}
+	\label{sec5:short_path_centrality_ex3}
+\end{figure}
 
 %=====================================================
