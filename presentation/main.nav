@@ -1,0 +1,77 @@
+\headcommand {\slideentry {0}{0}{1}{1/1}{}{0}}
+\headcommand {\beamer@framepages {1}{1}}
+\headcommand {\slideentry {0}{0}{2}{2/2}{}{0}}
+\headcommand {\beamer@framepages {2}{2}}
+\headcommand {\beamer@sectionpages {1}{2}}
+\headcommand {\beamer@subsectionpages {1}{2}}
+\headcommand {\sectionentry {1}{Objetivo}{3}{Objetivo}{0}}
+\headcommand {\slideentry {1}{0}{1}{3/3}{}{0}}
+\headcommand {\beamer@framepages {3}{3}}
+\headcommand {\beamer@sectionpages {3}{3}}
+\headcommand {\beamer@subsectionpages {3}{3}}
+\headcommand {\sectionentry {2}{Fundamentação teórica}{4}{Fundamentação teórica}{0}}
+\headcommand {\beamer@subsectionpages {4}{3}}
+\headcommand {\beamer@subsectionentry {0}{2}{1}{4}{Caminhos mínimos (algoritmo de \emph {Dijkstra})}}
+\headcommand {\slideentry {2}{1}{1}{4/4}{Caminhos mínimos (algoritmo de \emph {Dijkstra})}{0}}
+\headcommand {\beamer@framepages {4}{4}}
+\headcommand {\slideentry {2}{1}{2}{5/5}{Caminhos mínimos (algoritmo de \emph {Dijkstra})}{0}}
+\headcommand {\beamer@framepages {5}{5}}
+\headcommand {\slideentry {2}{1}{3}{6/6}{Caminhos mínimos (algoritmo de \emph {Dijkstra})}{0}}
+\headcommand {\beamer@framepages {6}{6}}
+\headcommand {\beamer@subsectionpages {4}{6}}
+\headcommand {\beamer@subsectionentry {0}{2}{2}{7}{Centralidade de intermediação (\emph {betweenness centrality})}}
+\headcommand {\slideentry {2}{2}{1}{7/7}{Centralidade de intermediação (\emph {betweenness centrality})}{0}}
+\headcommand {\beamer@framepages {7}{7}}
+\headcommand {\slideentry {2}{2}{2}{8/8}{Centralidade de intermediação (\emph {betweenness centrality})}{0}}
+\headcommand {\beamer@framepages {8}{8}}
+\headcommand {\beamer@subsectionpages {7}{8}}
+\headcommand {\beamer@subsectionentry {0}{2}{3}{9}{Centralidade de caminhos mínimos}}
+\headcommand {\slideentry {2}{3}{1}{9/9}{Centralidade de caminhos mínimos}{0}}
+\headcommand {\beamer@framepages {9}{9}}
+\headcommand {\slideentry {2}{3}{2}{10/10}{Centralidade de caminhos mínimos}{0}}
+\headcommand {\beamer@framepages {10}{10}}
+\headcommand {\slideentry {2}{3}{3}{11/11}{Centralidade de caminhos mínimos}{0}}
+\headcommand {\beamer@framepages {11}{11}}
+\headcommand {\slideentry {2}{3}{4}{12/12}{Centralidade de caminhos mínimos}{0}}
+\headcommand {\beamer@framepages {12}{12}}
+\headcommand {\beamer@sectionpages {4}{12}}
+\headcommand {\beamer@subsectionpages {9}{12}}
+\headcommand {\sectionentry {3}{Método e Resultados}{13}{Método e Resultados}{0}}
+\headcommand {\beamer@subsectionpages {13}{12}}
+\headcommand {\beamer@subsectionentry {0}{3}{1}{13}{Arquitetura dos grafos de entrada}}
+\headcommand {\slideentry {3}{1}{1}{13/13}{Arquitetura dos grafos de entrada}{0}}
+\headcommand {\beamer@framepages {13}{13}}
+\headcommand {\slideentry {3}{1}{2}{14/14}{Arquitetura dos grafos de entrada}{0}}
+\headcommand {\beamer@framepages {14}{14}}
+\headcommand {\slideentry {3}{1}{3}{15/15}{Arquitetura dos grafos de entrada}{0}}
+\headcommand {\beamer@framepages {15}{15}}
+\headcommand {\slideentry {3}{1}{4}{16/16}{Arquitetura dos grafos de entrada}{0}}
+\headcommand {\beamer@framepages {16}{16}}
+\headcommand {\slideentry {3}{1}{5}{17/17}{Arquitetura dos grafos de entrada}{0}}
+\headcommand {\beamer@framepages {17}{17}}
+\headcommand {\beamer@subsectionpages {13}{17}}
+\headcommand {\beamer@subsectionentry {0}{3}{2}{18}{Fluxo da computação}}
+\headcommand {\slideentry {3}{2}{1}{18/18}{Fluxo da computação}{0}}
+\headcommand {\beamer@framepages {18}{18}}
+\headcommand {\beamer@subsectionpages {18}{18}}
+\headcommand {\beamer@subsectionentry {0}{3}{3}{19}{Resultados}}
+\headcommand {\slideentry {3}{3}{1}{19/19}{Resultados}{0}}
+\headcommand {\beamer@framepages {19}{19}}
+\headcommand {\slideentry {3}{3}{2}{20/20}{Resultados}{0}}
+\headcommand {\beamer@framepages {20}{20}}
+\headcommand {\slideentry {3}{3}{3}{21/21}{Resultados}{0}}
+\headcommand {\beamer@framepages {21}{21}}
+\headcommand {\slideentry {3}{3}{4}{22/22}{Resultados}{0}}
+\headcommand {\beamer@framepages {22}{22}}
+\headcommand {\slideentry {3}{3}{5}{23/23}{Resultados}{0}}
+\headcommand {\beamer@framepages {23}{23}}
+\headcommand {\beamer@sectionpages {13}{23}}
+\headcommand {\beamer@subsectionpages {19}{23}}
+\headcommand {\sectionentry {4}{Referências}{24}{Referências}{0}}
+\headcommand {\slideentry {4}{0}{1}{24/24}{}{0}}
+\headcommand {\beamer@framepages {24}{24}}
+\headcommand {\beamer@partpages {1}{24}}
+\headcommand {\beamer@subsectionpages {24}{24}}
+\headcommand {\beamer@sectionpages {24}{24}}
+\headcommand {\beamer@documentpages {24}}
+\headcommand {\gdef \inserttotalframenumber {24}}
