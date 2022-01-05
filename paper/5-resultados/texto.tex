@@ -4,7 +4,9 @@
 %	Resultados
 %----------------------------------------------------------------------------------------
 \chapter{Resultados}
-Para a execução dos testes, foram selecionados três grafos, sendo um primeiro bastante simples, utilizado para visualização exata dos valores de centralidade para cada caminho mínimo. Os demais dois grafos são modelos da vida real, clube de karatê de Zachary e a rede de jogos de futebol americano. Buscou-se selecionar redes que contivessem número de vértices e arestas distintas, para que fosse possível obter resultados não viciados em relação ao tamanho do grafo sobre os quais seriam executados os testes. Dito isso, as redes selecionadas representam diferentes tipos de redes e possuem quantidades de vértices que variam de 5 a 115. A Tabela~\ref{sec5:tab_grafos_teste} apresenta a descrição das redes nas quais foram executados os testes propostos.
+O trabalho foi desenvolvido em \emph{Python 3}, com uso da biblioteca \emph{NetworkX} \cite{networkx2021}.
+
+Para a execução dos testes, foram selecionados três grafos, sendo deles um grafo simples, utilizado para visualização exata dos valores de centralidade para cada caminho mínimo. Os demais dois grafos são modelos da vida real dados pelas aplicações do clube de karatê de Zachary e a rede de jogos de futebol americano. Buscou-se selecionar redes que contivessem número de vértices e arestas distintas, para que fosse possível obter resultados não viciados em relação ao tamanho do grafo sobre os quais seriam executados os testes. Dito isso, os grafos selecionadas representam diferentes tipos de redes e possuem quantidades de vértices que variam de 5 a 115. A Tabela~\ref{sec5:tab_grafos_teste} apresenta a descrição das redes nas quais foram executados os testes propostos.
 
 \begin{table}[!htp]
 	\centering
@@ -19,13 +21,13 @@ Para a execução dos testes, foram selecionados três grafos, sendo um primeiro
 	\end{tabular}
 \end{table}
 
-A Tabela~\ref{sec5:centralidade_grafo_teste} representa os valores de centralidade calculados para o grafo mais simples, Algoritmo~\ref{sec4:funcao_simple_graph_generator}. A ordem apresentada na tabela depende muito do contexto de análise, para este grafo, foi feita a ordenação de tal forma a agrupar ou deixar mais próximos os vértices iguais, por exemplo, as primeiras linhas desta tabela estão ordenadas primeiro com todos os caminhos mínimos que iniciam no vértice 1 e assim por diante.
+A Tabela~\ref{sec5:centralidade_grafo_teste} representa os valores de centralidade calculados pelo Algoritmo~\ref{sec4:funcao_simple_graph_generator} para o grafo mais simples. A ordem apresentada na tabela depende do contexto de análise. Para este grafo, foi feita a ordenação de tal forma a agrupar ou deixar mais próximos os vértices iguais. Por exemplo, as primeiras linhas desta tabela estão ordenadas primeiro com todos os caminhos mínimos que iniciam no vértice 1 e assim por diante.
 
 \begin{table}[!htp]
 	\centering
 	\caption{Valores de centralidade do grafo simples, Algoritmo~\ref{sec4:funcao_simple_graph_generator}.}
 	\label{sec5:centralidade_grafo_teste}
-	\resizebox{3.5cm}{!}{
+	\resizebox{3cm}{!}{
 		\begin{tabular}{|c|c|}
 			\hline
 			\textbf{Path} & \textbf{Centrality}	\\ \hline
@@ -53,9 +55,11 @@ A Tabela~\ref{sec5:centralidade_grafo_teste} representa os valores de centralida
 	}
 \end{table}
 
-Já para os grafos do clube de karatê de Zachary e da rede de jogos de futebol americano foram apresentados em gráficos, pois suas tabelas são muito extensas. Serão apresentados dois tipos de gráficos, um com os valores de centralidade dos camino mínimos normalizados e outro com os valores de centralidade, não normalizados e na escala logarítmica, dos caminhos mínimos.
+\newpage
 
-O Gráfico~\ref{sec5:short_path_centrality_ex2} e o Gráfico~\ref{sec5:short_path_centrality_ex3} distribuem os valores de centralidade, normalizados, dos caminhos mínimos no eixo $y$, de forma ordenada (crescente), enquanto o eixo $x$ representa apenas os caminhos mínimos em si, ou seja, estão rotulados sequencialmente, pois nesta visualização o percurso exato de cada um dos caminhos mínimos não nos interessa.
+Para os grafos do clube de karatê de Zachary e da rede de jogos de futebol americano, os resultados foram apresentados em gráficos, pois suas tabelas são extensas. Serão apresentados dois tipos de gráficos, um com os valores de centralidade dos camino mínimos normalizados e outro com os valores de centralidade não normalizados e na escala logarítmica.
+
+O Gráfico~\ref{sec5:short_path_centrality_ex2} e o Gráfico~\ref{sec5:short_path_centrality_ex3} distribuem os valores de centralidade, normalizados, dos caminhos mínimos no eixo $y$, de forma ordenada (crescente), enquanto o eixo $x$ representa os caminhos mínimos rotulados sequencialmente. Nesta visualização o percurso exato de cada um dos caminhos mínimos não nos interessa.
 
 \begin{figure}[!htb]
     \centering

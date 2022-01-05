@@ -4,25 +4,22 @@
 %	Metodologia
 %----------------------------------------------------------------------------------------
 \chapter{Metodologia}
-De um ponto de vista algorítmico e de estruturas de dados, os grafos são amplamente utilizados para representar redes em geral, sejam estas representações de mapas, redes sociais ou até mesmo o fluxo de influências numa rede bibliográfica. Com isto, existem muitas e das mais diversas linhas de pesquisas envolvendo algoritmos e teoria dos grafos. Os estudos vão desde análise de uma rota otimizada em um mapa à análise do surto de uma transmissão viral. Seguindo-se nesta linha, o estudo sobre a análise da centralidade de caminhos mínimos é bastante relevante em diversos cenários da vida real. Um exemplo, dado um mapa, existem rotas que sempre são mais comumente usadas por transportes de carga rodoviário, desta forma, espera-se que este trajeto demande de mais frequente manutenção. Este e muitos outros cenários nos levam a entender a importância do estudo e análise da centralidade de caminhos mínimos.
+De um ponto de vista algorítmico e de estruturas de dados, os grafos são amplamente utilizados para representar redes em geral, sejam estas representações de mapas, redes sociais ou até mesmo o fluxo de influências numa rede bibliográfica. O estudo sobre a análise da centralidade de caminhos mínimos é bastante relevante em diversos cenários da vida real. Dado um mapa, por exemplo, existem rotas que são mais comumente usadas por transportes de carga rodoviário, desta forma, espera-se que este trajeto demande de mais frequente manutenção.
 
-O problema de centralidades em grafos é um problema muito explorado e já existem diversas técnicas para análise da centralidade de vértices, porém a centralidade de arestas, caminhos mínimos, presente neste mesmo escopo pesquisa, ainda carece de estudos. É um problema extremamente interessante de exploração, pois representa um enorme leque de aplicações da vida real.
-
-Neste trabalho foram implementados e executados, experimentos de conceitos introduzidos no trabalho de doutorado da Alane Marie de Lima e publicado em \cite{alane2021}. O problema da centralidade de caminhos mínimos é explorado no trabalho da Alane de um ponto de vista de aplicabilidade, pois o algoritmo e todo seu processo, já em teoria, são extremamente custosos em tempo de execução para grafos muito esparsos. A pesquisa dela busca métodos de análise da centralidade de caminhos mínimos de forma mais eficiente.
+Neste trabalho foram implementados e executados, experimentos de conceitos introduzidos em \cite{alane2021}. O problema da centralidade de caminhos mínimos é explorado neste trabalho de um ponto de vista de aplicabilidade, pois o algoritmo e todo seu processo, já em teoria, são extremamente custosos em tempo de execução para grafos muito esparsos. Tal pesquisa busca métodos de análise da centralidade de caminhos mínimos de forma mais eficiente.
 
 Dito isto, este trabalho irá mostrar a aplicação de um algoritmo exato em três exemplos de grafos. O objetivo central é investigar, mesmo que preliminarmente, a distribuição dos valores de centralidade de caminhos mínimos. Os grafos que serão utilizados neste trabalho não são direcionados.
 
-Para apresentação visual e conceitual da metodologia serão utilizados: um grafo simples, com 5 vértices; o modelo de grafo do clube de karatê de Zachary, que é uma rede social de um clube universitário de karatê \cite{zachary2009}; a rede de jogos de futebol americano entre as faculdades da Divisão IA durante a temporada regular do outono de 2000 \cite{networkxfootball2021}.
+Para apresentação visual e conceitual da metodologia serão utilizados: um grafo simples, com 5 vértices; o modelo de grafo do clube de karatê de Zachary, que é uma rede social de um clube universitário de karatê \cite{zachary2009} e a rede de jogos de futebol americano entre as faculdades da Divisão IA durante a temporada regular do outono de 2000 \cite{networkxfootball2021}.
 
 %----------------------------------------------------------------------------------------
 %	Algoritmo
 %----------------------------------------------------------------------------------------
 \section{Algoritmo}
-Dados os grafos de entrada, a ideia geral do trabalho é obter todos os possíveis caminhos mínimos, isto é, executar o algoritmo de Dijkstra para cada um dos $n$ vértices do grafo. Como já mencionado, o algoritmo de Dijkstra, dado um vértice \emph{target}, constrói uma árvore de caminhos mínimos, sendo cada percurso da raiz até os nós da árvore, um caminho mínimo da raiz ao nó. Situações em que o grafo é conexo, a quantidade de caminhos mínimos de um vértice para todos os demais é de $n - 1$. Este processo será executado $n$ vezes, isto é, para todos os vértices do grafo.
+Dados os grafos de entrada, a ideia geral do trabalho é obter todos os possíveis caminhos mínimos, isto é, executar o algoritmo de Dijkstra para cada um dos $n$ vértices do grafo. Como já mencionado, o algoritmo de Dijkstra, dado um vértice alvo, constrói uma árvore de caminhos mínimos, sendo cada percurso da raiz até os nós da árvore um caminho mínimo da raiz ao nó. Em situações em que o grafo é conexo, a quantidade de caminhos mínimos de um vértice para todos os demais é de $n - 1$. Este processo será executado $n$ vezes, isto é, para todos os vértices do grafo.
 
-O trabalho foi desenvolvido em \emph{Python 3}, com uso da biblioteca \emph{NetworkX} \cite{networkx2021}.
 
-A função \emph{main()}, serve como chamada central de outras subfunções que fazem o tratamento dos dados e que serão explicadas em sequência. De forma geral, esta função faz a construção de um grafo (linhas 2 - 4), determina os caminhos mínimos para todos os vértices (linhas 5 - 8), faz a computação de centralidade dos caminhos mínimos de um grafo (linha 7) e exibe, na saída padrão, todos os caminhos mínimos com seus respectivos valores de centralidade (linha 8).
+A função \emph{main()} serve como chamada central de outras subfunções que fazem o tratamento dos dados e que serão explicadas em sequência. De forma geral, esta função faz a construção de um grafo (linhas 2 - 4), determina os caminhos mínimos para todos os vértices (linhas 5 - 8), faz a computação de centralidade dos caminhos mínimos de um grafo (linha 7) e exibe, na saída padrão, todos os caminhos mínimos com seus respectivos valores de centralidade (linha 8).
 
 \begin{lstlisting}[caption={Função central para chamada de subfunções.}]
 	def main() -> None:
@@ -36,7 +33,7 @@ A função \emph{main()}, serve como chamada central de outras subfunções que 
 		print_all_paths_and_centrality(shortestPaths)
 \end{lstlisting}
 
-Para a geração de grafos de entrada, meu código possui 3 funções: o Algoritmo~\ref{sec4:funcao_simple_graph_generator}~\emph{($simple\textunderscore graph\textunderscore generator()$)}, o Algoritmo~\ref{sec4:funcao_karate_club_graph_generator}~\emph{($karate\textunderscore club\textunderscore graph\textunderscore generator()$)} e o Algoritmo~\ref{sec4:funcao_rede_futebol}~\emph{($football\textunderscore graph\textunderscore generator()$)}. Estas funções usam a biblioteca \emph{NetworkX} para construção manual do grafo simples, chamada do grafo, já predefinido na biblioteca, do clube de karatê e chamada por fonte externa do grafo da rede de jogos de futebol americano.
+Para a geração de grafos de entrada, o código proposto neste trabalho possui 3 funções: o Algoritmo~\ref{sec4:funcao_simple_graph_generator}~\emph{($simple\textunderscore graph\textunderscore generator()$)}, o Algoritmo~\ref{sec4:funcao_karate_club_graph_generator}~\emph{($karate\textunderscore club\textunderscore graph\textunderscore generator()$)} e o Algoritmo~\ref{sec4:funcao_rede_futebol}~\emph{($football\textunderscore graph\textunderscore generator()$)}. Estas funções usam a biblioteca \emph{NetworkX} para construção manual do grafo simples, do clube de karatê, predefinidos na biblioteca, e chamada por fonte externa do grafo da rede de jogos de futebol americano.
 
 \begin{lstlisting}[caption={Função para gerar um grafo simples.}\label{sec4:funcao_simple_graph_generator}]
 	def simple_graph_generator():
@@ -54,28 +51,28 @@ Para a geração de grafos de entrada, meu código possui 3 funções: o Algorit
 	def karate_club_graph_generator():
 		G = nx.karate_club_graph()
 		for v in G:
-			print(f"{v:4} {G.degree(v):6}")
+			print(f``{v:4} {G.degree(v):6}'')
 		return(G)
 \end{lstlisting}
 
-\begin{lstlisting}[caption={Função para gerar o modelo de grafo da rede de futebol americano.}\label{sec4:funcao_rede_futebol}]
+\begin{lstlisting}[caption={Função para gerar o modelo de grafo da rede de futebol americano. Disponível em \cite{networkx2021}}.\label{sec4:funcao_rede_futebol}]
 	def football_graph_generator():
-		url = "http://www-personal.umich.edu/~mejn/netdata/football.zip"
+		url = ``http://www-personal.umich.edu/~mejn/netdata/football.zip''
 		sock = urllib.request.urlopen(url)  # open URL
-		s = io.BytesIO(sock.read())  # read into BytesIO "file"
+		s = io.BytesIO(sock.read())  # read into BytesIO ``file''
 		sock.close()
 		zf = zipfile.ZipFile(s)  # zipfile object
-		txt = zf.read("football.txt").decode()  # read info file
-		gml = zf.read("football.gml").decode()  # read gml data
+		txt = zf.read(``football.txt'').decode()  # read info file
+		gml = zf.read(``football.gml'').decode()  # read gml data
 		# throw away bogus first line with # from mejn files
-		gml = gml.split("\n")[1:]
+		gml = gml.split(``\n'')[1:]
 		G = nx.parse_gml(gml)  # parse gml data
 		return G
 \end{lstlisting}
 
 Com os grafos de entrada criados, iniciaremos o processo de tratamento destes dados.
 
-Dado um grafo de entrada, o Algoritmo~\ref{sec4:funcao_get_dijkstra_trees_from_a_graph}~(\emph{$get\textunderscore dijkstra\textunderscore trees\textunderscore from\textunderscore a\textunderscore graph()$}) trata os dados de entrada para passar por cada um dos vértices, gerando a árvore de Dijkstra. Estes dados são armazenados em um dicionário de caminhos mínimos, indexado pelos rótulos dos vértices.
+Dado um grafo de entrada, o Algoritmo~\ref{sec4:funcao_get_dijkstra_trees_from_a_graph}~(\emph{$get\textunderscore dijkstra\textunderscore trees\textunderscore from\textunderscore a\textunderscore graph()$}) trata os dados de entrada para passar por cada um dos vértices, gerando a árvore de Dijkstra. Estes dados são armazenados em um dicionário, estrutura de dados para armazenamento de dados com indexação por chaves,de caminhos mínimos, indexado pelos rótulos dos vértices.
 
 \begin{lstlisting}[caption={Função para tratar os dados de um grafo de entrada e gerar um dicionário de árvores de Dijkstra, indexado pelos rótulos dos vértices do grafo.}\label{sec4:funcao_get_dijkstra_trees_from_a_graph}]
 	def get_dijkstra_trees_from_a_graph(g: dict) -> dict:
@@ -86,15 +83,20 @@ Dado um grafo de entrada, o Algoritmo~\ref{sec4:funcao_get_dijkstra_trees_from_a
 		return graphDict
 \end{lstlisting}
 
-No próximo passo, o Algoritmo~\ref{sec4:get_shortest_paths_from_dijkstra_trees}~(\emph{$get\textunderscore shortest\textunderscore paths\textunderscore from\textunderscore dijkstra\textunderscore trees()$}) é uma etapa de refinamento dos dados previamente obtidos, isto é, ele pega os dados do dicionário de caminhos mínimos retornados pela função \emph{$get\textunderscore dijkstra\textunderscore trees\textunderscore from\textunderscore a\textunderscore graph()$} e faz operações de normalização textual, como retirada de colchetes nos nomes dos caminhos mínimos, por exemplo.
+No próximo passo, o Algoritmo~\ref{sec4:get_shortest_paths_from_dijkstra_trees}~(\emph{$get\textunderscore shortest\textunderscore paths\textunderscore from\textunderscore dijkstra\textunderscore trees()$}) é uma etapa de refinamento dos dados previamente obtidos. Isto é, a partir dos dados do dicionário de caminhos mínimos retornados pela função \emph{$get\textunderscore dijkstra\textunderscore trees\textunderscore from\textunderscore a\textunderscore graph()$}, o algoritmo faz operações de normalização textual, como retirada de colchetes nos nomes dos caminhos mínimos, por exemplo.
 
 \begin{lstlisting}[caption={Função para refinamento do dicionário de caminhos mínimos.}\label{sec4:get_shortest_paths_from_dijkstra_trees}]
+	class PathInfo:
+		def __init__(self, centrality: int, numNodes: int) -> None:
+			self.centrality = centrality
+			self.numNodes = numNodes
+
 	def get_shortest_paths_from_dijkstra_trees(graphDict: dict) -> dict:
 		pathDict = {}
 
 		for i in graphDict.values():
 			for j in i.values():
-				path = str(j).replace("[", "").replace("]", "")
+				path = str(j).replace(``['', ``'').replace(``]'', ``'')
 				if path not in pathDict and len(path) > 1:
 					newPathInfo = PathInfo(0, len(j))
 					pathDict[path] = newPathInfo
@@ -102,11 +104,11 @@ No próximo passo, o Algoritmo~\ref{sec4:get_shortest_paths_from_dijkstra_trees}
 		return pathDict
 \end{lstlisting}
 
-Agora sim, tendo-se os dados refinados, esta etapa visa calcular a centralidades dos caminhos mínimos, Algoritmo~\ref{sec4:all_shortest_paths_centrality} (\emph{$all\textunderscore shortest\textunderscore paths\textunderscore centrality()$}). A centralidades dos caminhos mínimos do grafo é calculada da seguinte forma: para cada caminho mínimo $cm_1$, verifique em todos os demais caminhos mínimos se $cm_1$ está presente como subcaminho mínimo (\emph{linhas 2 - 5}); em caso positivo, contabilize $+1$ na centralidade de $cm_1$ (\emph{linha 6}); estas etapas são repetidas para todos os demais caminhos mínimos (\emph{linhas 2 - 6}); feito isto, agora a última etapa é referente a normalização dos valores (\emph{linhas 11 - 13}), pois é comumente visto valores de ponderação com valores entre $0$ e $1$, ou seja, quanto mais próximo de $1$, maior a centralidade do caminho mínimo.
+Tendo-se os dados refinados, a última etapa visa calcular a centralidades dos caminhos mínimos, no Algoritmo~\ref{sec4:all_shortest_paths_centrality} (\emph{$all\textunderscore shortest\textunderscore paths\textunderscore centrality()$}). A centralidades dos caminhos mínimos do grafo é calculada da seguinte forma: para cada caminho mínimo $cm_1$, verifique em todos os demais caminhos mínimos se $cm_1$ está presente como subcaminho mínimo (\emph{linhas 2 - 5}); em caso positivo, contabilize $+1$ na centralidade de $cm_1$ (\emph{linha 6}). Estas etapas são repetidas para todos os demais caminhos mínimos (\emph{linhas 2 - 6}). Feito isto, os valores são normalizados (\emph{linhas 11 - 13}), para que os valores de ponderação estejam entre $0$ e $1$. Ou seja, quanto mais próximo de $1$, maior a centralidade do caminho mínimo.
 
 \begin{lstlisting}[caption={Função para cálculo da centralidade dos caminhos mínimos.}\label{sec4:all_shortest_paths_centrality}]
 def all_shortest_paths_centrality(pathDict: dict) -> dict:
-	# Check if i is contained in j. If it is, plus one
+	# Check if i is contained in j. If so, add one
 	for i in pathDict:
 		for j in pathDict:
 			if i in j:
